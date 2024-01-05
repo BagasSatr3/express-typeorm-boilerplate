@@ -1,31 +1,27 @@
-// UserEntity.ts
+// PostEntity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  Unique,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
-import { Post } from "./Posts";
+import { User } from "./Users";
 
-@Entity({ name: "users" })
-export class User {
+@Entity({ name: "posts" })
+export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  email: string;
+  title: string;
 
   @Column()
-  username: string;
+  content: string;
 
-  @Column()
-  password: string;
-
-  @OneToMany(() => Post, (post) => post.user)
-  posts: Post[];
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;
